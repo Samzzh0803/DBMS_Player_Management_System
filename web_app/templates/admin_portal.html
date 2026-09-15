@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Portal</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+  <main>
+    <h1>Admin Portal (Phase 2)</h1>
+    <nav class="links">
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+    <div class="grid2">
+      <div class="card"><h2>Players</h2><p>{{ stats.players }}</p></div>
+      <div class="card"><h2>Teams</h2><p>{{ stats.teams }}</p></div>
+      <div class="card"><h2>Contracts</h2><p>{{ stats.contracts }}</p></div>
+      <div class="card"><h2>Offers</h2><p>{{ stats.offers }}</p></div>
+    </div>
+  </main>
+</body>
+</html>

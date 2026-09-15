@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Player Portal</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+  <main>
+    <h1>{{ profile.player_name }} — Player Portal</h1>
+    <nav class="links">
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+    <p>Team: {{ profile.team_name }} | Position: {{ profile.position }} | Age: {{ profile.age }}</p>
+
+    <div class="grid2">
+      <div class="card">
+        <h2>Overall Stats</h2>
+        <p>Matches: {{ profile.overall.matches_played }}</p>
+        <p>Goals: {{ profile.overall.goals }}</p>
+        <p>Assists: {{ profile.overall.assists }}</p>
+      </div>
+      <div class="card">
+        <h2>Current Season</h2>
+        {% if profile.current %}
+        <p>Season: {{ profile.current.season }}</p>
+        <p>Matches: {{ profile.current.matches_played }}</p>
+        <p>Goals: {{ profile.current.goals }}</p>
+        <p>Assists: {{ profile.current.assists }}</p>
+        {% else %}
+        <p>No season data yet.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <h2>Offers</h2>
+    <table>
+      <thead><tr><th>Offer ID</th><th>Team</th><th>Amount</th></tr></thead>
+      <tbody>
+      {% for o in profile.offers %}
+      <tr><td>{{ o.offer_id }}</td><td>{{ o.team_name }}</td><td>{{ o.amount_offered }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

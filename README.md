@@ -242,15 +242,17 @@ python app.py
 
 ## Web Deployment (Render-ready)
 
-This repository now includes a minimal web-deployable version so you can host it with a public link.
+This repository now includes a deployable web version so you can host it with a public link.
 
 ### What was added
-- `web_app/` Flask web service (phase 1 migration)
+- `web_app/` Flask web service (phase 2 migration scaffold)
 - `/health` endpoint for uptime checks
 - `/api/players` endpoint for dashboard data
-- `/` web dashboard page rendering player summary
+- `/api/contracts/expiring`, `/api/teams/<id>/summary`, `/api/players/<id>/summary`
+- `/` dashboard, `/login`, `/team/<id>`, `/player/<id>`, `/admin`, `/contracts/expiring`
 - Environment-based DB configuration via `DATABASE_URL`
 - Docker and `render.yaml` for deployment
+- Seeded demo data for team/player login, offers, and match stats
 
 ### Local run (web app)
 
@@ -268,6 +270,12 @@ INIT_DB_ON_START=true python -m web_app.app
 - `http://localhost:10000/`
 - `http://localhost:10000/health`
 - `http://localhost:10000/api/players`
+- `http://localhost:10000/login`
+
+Demo credentials for seeded data:
+- Team: `T_lions` / `demo123`
+- Player: `P_ali` / `demo123`
+- Admin: `admin` / `admin1`
 
 ### Deploy on Render
 
@@ -279,7 +287,7 @@ INIT_DB_ON_START=true python -m web_app.app
    - `INIT_DB_ON_START=true` for initial bootstrap
 4. Deploy and use the generated Render service URL.
 
-> Note: this is the first migration phase from desktop to web. Additional portal screens and workflows can be migrated incrementally.
+> Note: this is still a migration scaffold. Core desktop workflows are now represented with web routes, and additional CRUD/detail screens can continue to be migrated incrementally.
 
 ---
 
@@ -311,8 +319,8 @@ web_app/
 ├── config.py                 # Environment-driven configuration
 ├── db.py                     # Engine/session and seed setup
 ├── models.py                 # SQLAlchemy models
-├── templates/index.html      # Minimal dashboard page
-└── static/styles.css         # Basic styling
+├── templates/*.html          # Dashboard, login, player/team/admin pages
+└── static/styles.css         # Shared styling
 
 Dockerfile                    # Container runtime
 render.yaml                   # Render blueprint config

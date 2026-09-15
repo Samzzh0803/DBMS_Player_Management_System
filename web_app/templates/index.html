@@ -9,7 +9,14 @@
 <body>
   <main>
     <h1>Football Player Management System</h1>
-    <p>Live web preview: dashboard player summary.</p>
+    <p class="muted">Web migration phase 2: login + team/player/admin portal pages.</p>
+    <nav class="links">
+      <a href="{{ url_for('login') }}">Login</a>
+      <a href="{{ url_for('expiring_contracts_page') }}">Expiring Contracts</a>
+      <a href="{{ url_for('admin_portal') }}">Admin Summary</a>
+    </nav>
+
+    <h2>Player Dashboard Snapshot</h2>
     <table>
       <thead>
         <tr>
