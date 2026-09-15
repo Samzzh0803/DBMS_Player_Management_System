@@ -1,0 +1,6 @@
+body { font-family: Arial, sans-serif; margin: 0; background: #f4f6fb; color: #1e2330; }
+main { max-width: 1000px; margin: 32px auto; background: #fff; padding: 24px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,.08); }
+h1 { margin-top: 0; }
+table { width: 100%; border-collapse: collapse; margin-top: 18px; }
+th, td { border: 1px solid #dde2ef; padding: 10px; text-align: left; }
+th { background: #eef2ff; }
