@@ -240,6 +240,49 @@ python app.py
 
 ---
 
+## Web Deployment (Render-ready)
+
+This repository now includes a minimal web-deployable version so you can host it with a public link.
+
+### What was added
+- `web_app/` Flask web service (phase 1 migration)
+- `/health` endpoint for uptime checks
+- `/api/players` endpoint for dashboard data
+- `/` web dashboard page rendering player summary
+- Environment-based DB configuration via `DATABASE_URL`
+- Docker and `render.yaml` for deployment
+
+### Local run (web app)
+
+1. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+2. Start app with seed data enabled (SQLite default for quick start):
+```bash
+INIT_DB_ON_START=true python -m web_app.app
+```
+
+3. Open:
+- `http://localhost:10000/`
+- `http://localhost:10000/health`
+- `http://localhost:10000/api/players`
+
+### Deploy on Render
+
+1. Push this repository to GitHub.
+2. In Render, create a **Blueprint** deploy (it will use `render.yaml`).
+3. Set/verify environment variables:
+   - `DATABASE_URL` (Render Postgres internal URL)
+   - `SECRET_KEY` (auto-generated in `render.yaml`)
+   - `INIT_DB_ON_START=true` for initial bootstrap
+4. Deploy and use the generated Render service URL.
+
+> Note: this is the first migration phase from desktop to web. Additional portal screens and workflows can be migrated incrementally.
+
+---
+
 ## Project Structure
 
 ```
@@ -262,6 +305,18 @@ DBSProject_Team05/
 ├── PA.ui / PD.ui             # Player Add / Delete
 ├── TA.ui / TD.ui             # Team Add / Delete
 └── [Additional UI files]
+
+web_app/
+├── app.py                    # Flask app with routes
+├── config.py                 # Environment-driven configuration
+├── db.py                     # Engine/session and seed setup
+├── models.py                 # SQLAlchemy models
+├── templates/index.html      # Minimal dashboard page
+└── static/styles.css         # Basic styling
+
+Dockerfile                    # Container runtime
+render.yaml                   # Render blueprint config
+requirements.txt              # Web app dependencies
 ```
 
 ---
