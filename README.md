@@ -240,6 +240,57 @@ python app.py
 
 ---
 
+## Web Deployment (Render-ready)
+
+This repository now includes a deployable web version so you can host it with a public link.
+
+### What was added
+- `web_app/` Flask web service (phase 2 migration scaffold)
+- `/health` endpoint for uptime checks
+- `/api/players` endpoint for dashboard data
+- `/api/contracts/expiring`, `/api/teams/<id>/summary`, `/api/players/<id>/summary`
+- `/` dashboard, `/login`, `/team/<id>`, `/player/<id>`, `/admin`, `/contracts/expiring`
+- Environment-based DB configuration via `DATABASE_URL`
+- Docker and `render.yaml` for deployment
+- Seeded demo data for team/player login, offers, and match stats
+
+### Local run (web app)
+
+1. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+2. Start app with seed data enabled (SQLite default for quick start):
+```bash
+INIT_DB_ON_START=true python -m web_app.app
+```
+
+3. Open:
+- `http://localhost:10000/`
+- `http://localhost:10000/health`
+- `http://localhost:10000/api/players`
+- `http://localhost:10000/login`
+
+Demo credentials for seeded data:
+- Team: `T_lions` / `demo123`
+- Player: `P_ali` / `demo123`
+- Admin: `admin` / `admin1`
+
+### Deploy on Render
+
+1. Push this repository to GitHub.
+2. In Render, create a **Blueprint** deploy (it will use `render.yaml`).
+3. Set/verify environment variables:
+   - `DATABASE_URL` (Render Postgres internal URL)
+   - `SECRET_KEY` (auto-generated in `render.yaml`)
+   - `INIT_DB_ON_START=true` for initial bootstrap
+4. Deploy and use the generated Render service URL.
+
+> Note: this is still a migration scaffold. Core desktop workflows are now represented with web routes, and additional CRUD/detail screens can continue to be migrated incrementally.
+
+---
+
 ## Project Structure
 
 ```
@@ -262,6 +313,18 @@ DBSProject_Team05/
 ├── PA.ui / PD.ui             # Player Add / Delete
 ├── TA.ui / TD.ui             # Team Add / Delete
 └── [Additional UI files]
+
+web_app/
+├── app.py                    # Flask app with routes
+├── config.py                 # Environment-driven configuration
+├── db.py                     # Engine/session and seed setup
+├── models.py                 # SQLAlchemy models
+├── templates/*.html          # Dashboard, login, player/team/admin pages
+└── static/styles.css         # Shared styling
+
+Dockerfile                    # Container runtime
+render.yaml                   # Render blueprint config
+requirements.txt              # Web app dependencies
 ```
 
 ---

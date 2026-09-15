@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: dbms-player-management-web
+    runtime: docker
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: INIT_DB_ON_START
+        value: "true"
+      - key: SECRET_KEY
+        generateValue: true
+
+databases:
+  - name: dbms-player-management-db
+    plan: free

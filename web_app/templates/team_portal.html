@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team Portal</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+  <main>
+    <h1>{{ summary.team_name }} — Team Portal</h1>
+    <nav class="links">
+      <a href="{{ url_for('expiring_contracts_page') }}">Expiring Contracts</a>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+    <div class="grid2">
+      <div class="card">
+        <h2>Overall</h2>
+        <p>Wins: {{ summary.wins }}</p>
+        <p>Draws: {{ summary.draws }}</p>
+        <p>Losses: {{ summary.losses }}</p>
+        <p>Win %: {{ summary.win_percentage }}</p>
+      </div>
+      <div class="card">
+        <h2>Season {{ summary.current_season }}</h2>
+        <p>Wins: {{ summary.current_wins }}</p>
+        <p>Draws: {{ summary.current_draws }}</p>
+        <p>Losses: {{ summary.current_losses }}</p>
+        <p>GF/GA/GD: {{ summary.goals_for }} / {{ summary.goals_against }} / {{ summary.goal_difference }}</p>
+      </div>
+    </div>
+
+    <h2>Squad</h2>
+    <table>
+      <thead><tr><th>Player</th><th>Nationality</th><th>Position</th><th>Age</th></tr></thead>
+      <tbody>
+      {% for p in players %}
+      <tr><td>{{ p.name }}</td><td>{{ p.nationality }}</td><td>{{ p.position }}</td><td>{{ p.age }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expiring Contracts</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+  <main>
+    <h1>Contracts Expiring in 90 Days</h1>
+    <nav class="links">
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('login') }}">Login</a>
+    </nav>
+    <table>
+      <thead><tr><th>Player ID</th><th>Player</th><th>Team</th><th>End Date</th></tr></thead>
+      <tbody>
+      {% for c in contracts %}
+      <tr>
+        <td>{{ c.player_id }}</td>
+        <td>{{ c.player_name }}</td>
+        <td>{{ c.team_name }}</td>
+        <td>{{ c.contract_end_date }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>
